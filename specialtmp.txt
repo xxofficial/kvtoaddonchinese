@@ -1,0 +1,1 @@
+"DOTA_Tooltip_ability_${ability_name}_${special_key}"   ""

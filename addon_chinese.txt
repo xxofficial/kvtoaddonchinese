@@ -1,0 +1,3 @@
+"DOTA_Tooltip_ability_${ability_name}"	""
+"DOTA_Tooltip_ability_${ability_name}_Description"	""
+"DOTA_Tooltip_ability_${ability_name}_Lore" ""
