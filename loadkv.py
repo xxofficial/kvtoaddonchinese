@@ -1,14 +1,24 @@
 import re
+
+
 class Ability(object):
     upgrade_map = {
         "NoUpgrade": "",
-        "HasShardUpgrade" : "shard",
-        "HasScepterUpgrade" : "scepter"
+        "HasShardUpgrade": "shard",
+        "HasScepterUpgrade": "scepter"
     }
-    def __init__(self, name, special, upgrade = "NoUpgrade"):
+
+    def __init__(self, name, special, upgrade="NoUpgrade"):
         self.name = name
         self.special = special
         self.upgrade = self.upgrade_map[upgrade]
+
+
+class Node(object):
+    def __init__(self, preNode, value):
+        self.preNode = preNode
+        self.value = value
+
 
 def loadKv(filename):
     abilitycachefile = open("ability_cache.txt", "a+")
@@ -20,6 +30,8 @@ def loadKv(filename):
     # currentkey = ""
     currentmap = res
     lastmap = res
+    n1 = Node(None, lastmap)
+    n2 = Node(n1, currentmap)
     laststr = ""
     currentlevel = 0
     ability = ""
@@ -36,10 +48,11 @@ def loadKv(filename):
         if len(newlist) == 1 and newlist[0] != '{' and newlist[0] != '}':
             currentkey = newlist[0]
         elif newlist[0] == '{':
-            lastmap = currentmap
+            n1 = n2
             currentmap[currentkey] = {}
             currentmap = currentmap[currentkey]
             currentlevel = currentlevel + 1
+            n2 = Node(n1, currentmap)
             if currentlevel == 2 and currentkey not in abilitycache:
                 ability = Ability(currentkey, {})
                 abilitylist.append(ability)
@@ -54,15 +67,19 @@ def loadKv(filename):
                 if newlist[0] == "HasShardUpgrade" or newlist[0] == "HasScepterUpgrade":
                     ability.upgrade = ability.upgrade_map[newlist[0]]
         elif newlist[0] == '}':
-            currentmap = lastmap
+            n2 = n1
+            n1 = n1.preNode
+            currentmap = n2.value
             currentlevel = currentlevel - 1
     abilitycachefile.close()
     file.close()
     return res, abilitylist
+
+
 def LoadAbilityList(filename):
     _, abilitylist = loadKv(filename)
     return abilitylist
-        
+
 
 # res, _ = loadKv("npc_abilities_custom.txt")
 # print(res)

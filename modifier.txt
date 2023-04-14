@@ -1,1 +1,2 @@
 "DOTA_Tooltip_modifier_${ability_name}"	""
+"DOTA_Tooltip_modifier_${ability_name}_description"	""

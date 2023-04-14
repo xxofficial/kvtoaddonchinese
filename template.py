@@ -1,5 +1,7 @@
 from string import Template as tp
+
 import loadkv
+
 
 def GenerateAddonChinese(filename):
     lines = []
@@ -8,22 +10,26 @@ def GenerateAddonChinese(filename):
     tmp2 = tp(open("upgrade.txt", "r").read())
     tmp4 = tp(open("modifier.txt", "r").read())
     for ability in loadkv.LoadAbilityList(filename):
-        lines.append(tmp1.substitute({"ability_name":ability.name}))
+        lines.append(tmp1.substitute({"ability_name": ability.name}))
         lines.append("\n")
         if ability.upgrade != "":
-            lines.append(tmp2.substitute({"ability_name":ability.name, "upgrade":ability.upgrade}))
+            lines.append(tmp2.substitute(
+                {"ability_name": ability.name, "upgrade": ability.upgrade}))
             lines.append("\n")
         for key in ability.special:
-            lines.append(tmp.substitute({"ability_name":ability.name, "special_key": key}))
+            lines.append(tmp.substitute(
+                {"ability_name": ability.name, "special_key": key}))
             lines.append("\n")
-        lines.append(tmp4.substitute({"ability_name":ability.name}))
+        lines.append(tmp4.substitute({"ability_name": ability.name}))
         lines.append("\n")
         lines.append("\n")
     file = open("res.txt", "w")
     file.writelines(lines)
     file.close()
 
-GenerateAddonChinese("transform_hero_abilities.kv")
+
+GenerateAddonChinese(
+    "D:\\respository\\survive\\game\\survive\\scripts\\npc\\kv\\abilities\\transform_hero_abilities.kv")
 
 # tmpFile = open('template.lua', 'r')
 # tmp = tp(tmpFile.read())
