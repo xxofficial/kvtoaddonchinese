@@ -13,12 +13,16 @@ def GenerateAddonChinese(filename):
         lines.append(tmp1.substitute({"ability_name": ability.name}))
         lines.append("\n")
         if ability.upgrade != "":
-            lines.append(tmp2.substitute(
-                {"ability_name": ability.name, "upgrade": ability.upgrade}))
+            lines.append(
+                tmp2.substitute(
+                    {"ability_name": ability.name, "upgrade": ability.upgrade}
+                )
+            )
             lines.append("\n")
         for key in ability.special:
-            lines.append(tmp.substitute(
-                {"ability_name": ability.name, "special_key": key}))
+            lines.append(
+                tmp.substitute({"ability_name": ability.name, "special_key": key})
+            )
             lines.append("\n")
         lines.append(tmp4.substitute({"ability_name": ability.name}))
         lines.append("\n")
@@ -28,8 +32,11 @@ def GenerateAddonChinese(filename):
     file.close()
 
 
+# GenerateAddonChinese(
+#     "D:\\respository\\survive\\game\\survive\\scripts\\npc\\kv\\abilities\\transform_hero_abilities.kv")
 GenerateAddonChinese(
-    "D:\\respository\\survive\\game\\survive\\scripts\\npc\\kv\\abilities\\transform_hero_abilities.kv")
+    "D:\\respository\\survive\\game\\survive\\scripts\\npc\\kv\\abilities\\transform_hero_abilities.kv"
+)
 
 # tmpFile = open('template.lua', 'r')
 # tmp = tp(tmpFile.read())
